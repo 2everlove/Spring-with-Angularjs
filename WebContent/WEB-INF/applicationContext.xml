@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xsi:schemaLocation="
+   http://www.springframework.org/schema/beans     
+   http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+   http://www.springframework.org/schema/context 
+   http://www.springframework.org/schema/context/spring-context-4.0.xsd
+   http://www.springframework.org/schema/mvc
+   http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+   http://www.springframework.org/schema/websocket
+   http://www.springframework.org/schema/websocket/spring-websocket.xsd">
+
+	<mvc:annotation-driven />
+
+	<context:component-scan base-package="com.test.web" />
+	
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up 
+			static resources in the ${webappRoot}/resources directory -->
+	<mvc:resources mapping="/resources/**" location="/resources/" />
+	<mvc:resources mapping="/js/**" location="/js/" />
+	<mvc:resources mapping="/css/**" location="/css/" />
+	<mvc:resources mapping="/images/**" location="/images/" />
+
+
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/view/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+	<!-- DB접속정보 -->
+	<bean id="dataSource"
+		class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName"
+			value="org.mariadb.jdbc.Driver" />
+		<property name="url"
+			value="jdbc:mysql://server.aniss.co.kr:3306/AnissTest?interactiveClient=true&amp;autoReconnect=true&amp;autoReconnectForPools=true" />
+		<property name="username" value="anisstest" />
+		<property name="password" value="anisstest713&amp;" />
+	</bean>
+
+
+
+
+
+	<!-- MyBatis 정보 -->
+	<bean id="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation"
+			value="/WEB-INF/mybatis-config.xml" />
+		<property name="typeAliasesPackage" value="com.test.web" />
+		<property name="mapperLocations"
+			value="classpath*:com/test/web/**/dao/mapper/*Mapper.xml" />
+	</bean>
+	
+	
+	
+	
+	
+
+	<bean id="sqlSessionTemplate"
+		class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory" />
+	</bean>
+
+
+
+
+
+	<!-- dao 스캔 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.test.web.**.dao" />
+	</bean>
+
+</beans>

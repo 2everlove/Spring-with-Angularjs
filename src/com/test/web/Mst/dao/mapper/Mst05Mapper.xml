@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.test.web.Mst.dao.Mst05Dao">
+  	<select id="selectMst05" parameterType="Mst05Bean" 
+  								resultType="Mst05Bean">
+  		SELECT * FROM mst050_ahn
+  		WHERE sok_cd = #{sok_cd}
+  	</select>
+  	
+  	<!-- 등록 -->
+	<insert id="regMst05" parameterType="Mst05Bean">
+		INSERT INTO mst050_ahn
+		(
+			sok_cd
+			,sok_na1
+			,sok_kana
+			,sok_kbn
+			,sok_yubin
+			,sok_ju1
+			,sok_ju2
+			,sok_tel
+			,sok_fax
+			,tant_na1
+			,sok_jun
+			,sok_tokcd
+			,sok_sircd
+		) 
+		VALUES 
+		(
+			#{sok_cd}
+			,#{sok_na1}
+			,#{sok_kana}
+			,#{sok_kbn}
+			,#{sok_yubin}
+			,#{sok_ju1}
+			,#{sok_ju2}
+			,#{sok_tel}
+			,#{sok_fax}
+			,#{tant_na1}
+			,#{sok_jun}
+			,#{sok_tokcd}
+			,#{sok_sircd}
+		)
+	</insert>
+	
+  	<!-- 삭제 -->
+  	<delete id="deleteMst05" parameterType="Mst05Bean">
+  		delete from mst050_ahn where sok_cd = #{sok_cd}
+  	</delete>
+  	
+  	<!-- 수정 -->
+  	<update id="updateMst05" parameterType="Mst05Bean">
+  		update mst050_ahn
+  		<set>
+  			<if test="sok_na1==null">sok_na1=#{sok_na1},</if>
+			<if test="sok_kana!=null">sok_kana=#{sok_kana},</if>
+			<if test="sok_kbn!=null">sok_kbn=#{sok_kbn},</if>
+			<if test="sok_yubin!=null">sok_yubin=#{sok_yubin},</if>
+			<if test="sok_ju1!=null">sok_ju1=#{sok_ju1},</if>
+			<if test="sok_ju2!=null">sok_ju2=#{sok_ju2},</if>
+			<if test="sok_tel!=null">sok_tel=#{sok_tel},</if>
+			<if test="sok_fax!=null">sok_fax=#{sok_fax},</if>
+			<if test="tant_na1!=null">tant_na1=#{tant_na1},</if>
+			<if test="sok_jun!=null">sok_jun=#{sok_jun},</if>
+			<if test="sok_tokcd!=null">sok_tokcd=#{sok_tokcd},</if>
+			<if test="sok_sircd!=null">sok_sircd=#{sok_sircd},</if>
+  		</set>
+  		where sok_cd = #{sok_cd}
+  	</update>
+  	
+  	<select id="listMst05" parameterType="Mst05Bean"
+  								resultType="Mst05Bean">
+  		select a.* from (select *, ROW_NUMBER() over() AS num from mst050_ahn
+  		<trim prefix="order by">
+			<if test="sort=='sok_kana'">sok_kana</if>
+			<if test="sort=='sok_cd'">sok_cd</if>
+		</trim>
+  		
+  		) a 
+  		<where>
+			<if test="sok_kana!=null">a.sok_kana like CONCAT('%',#{sok_kana},'%')</if>
+			<if test="sok_kbn gt 0">and a.sok_kbn = #{sok_kbn}</if>
+		</where>
+  	</select>
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  </mapper>

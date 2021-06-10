@@ -6,13 +6,13 @@
   <mapper namespace="com.test.web.Mst.dao.Mst05Dao">
   	<select id="selectMst05" parameterType="Mst05Bean" 
   								resultType="Mst05Bean">
-  		SELECT * FROM mst050_ahn
+  		SELECT * FROM MRQ_M_Ahn
   		WHERE sok_cd = #{sok_cd}
   	</select>
   	
   	<!-- 등록 -->
 	<insert id="regMst05" parameterType="Mst05Bean">
-		INSERT INTO mst050_ahn
+		INSERT INTO MRQ_M_Ahn
 		(
 			sok_cd
 			,sok_na1
@@ -48,12 +48,12 @@
 	
   	<!-- 삭제 -->
   	<delete id="deleteMst05" parameterType="Mst05Bean">
-  		delete from mst050_ahn where sok_cd = #{sok_cd}
+  		delete from MRQ_M_Ahn where sok_cd = #{sok_cd}
   	</delete>
   	
   	<!-- 수정 -->
   	<update id="updateMst05" parameterType="Mst05Bean">
-  		update mst050_ahn
+  		update MRQ_M_Ahn
   		<set>
   			<if test="sok_na1==null">sok_na1=#{sok_na1},</if>
 			<if test="sok_kana!=null">sok_kana=#{sok_kana},</if>
@@ -73,7 +73,7 @@
   	
   	<select id="listMst05" parameterType="Mst05Bean"
   								resultType="Mst05Bean">
-  		select a.* from (select *, ROW_NUMBER() over() AS num from mst050_ahn
+  		select a.* from (select *, ROW_NUMBER() over() AS num from MRQ_M_Ahn
   		<trim prefix="order by">
 			<if test="sort=='sok_kana'">sok_kana</if>
 			<if test="sort=='sok_cd'">sok_cd</if>

@@ -12,9 +12,13 @@
 		 function popup(){
 	            let url = "/popup";
 	            let name = "マスター";
-	            let option = "width = 500, height = 500, top = 100, left = 200, location = no"
+	            let popupX = (window.screen.width / 2) - (200 / 2);
+				let popupY= (window.screen.height / 2) - (300 / 2);
+	            let option = "width = 1200, height = 600, top = 100, left="+ popupX + ", top="+ popupY;
 	            window.open(url, name, option);
 	        }
+		 
+		 
 	</script>
 </head>
 <body>		 

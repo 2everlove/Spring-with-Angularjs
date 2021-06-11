@@ -149,10 +149,8 @@ public class MstController {
 	mstListAjax(@RequestBody Mst05Bean vo)
 	
 	{
-		System.out.println(vo);
 		ArrayList<Mst05Bean> mstList = mst05Dao.listMst05(vo);
 		
-		System.out.println(mstList);
 		return mstList;
 	}
 	
